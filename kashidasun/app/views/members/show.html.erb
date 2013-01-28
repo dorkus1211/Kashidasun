@@ -1,0 +1,39 @@
+<% if session[:login] %>
+  <% @page_title = "利用者の詳細ページだよ" %>
+<% end %>
+
+<table class="attr">
+  <tr>
+    <th>ユーザーID</th>
+    <td><%= @member.member_id %></td>
+  </tr>
+
+  <tr>
+    <th>パスワード</th>
+    <td><%= @member.pw %></td>
+  </tr>
+
+  <tr>
+    <th>氏名</th>
+    <td><%= @member.name %></td>
+  </tr>
+
+  <% if session[:admin] %>
+    <tr>
+      <th>管理者</th>
+      <td><%= @member.admin == true ? "○" : "×" %></td>
+    </tr>
+    <%= form_tag :admin, method: :get do %>
+      <p><%= submit_tag "管理者ページトップに戻る" %></p>
+    <% end %>
+  <% elsif session[:login] %>
+    <%= form_tag :userpage, method: :get do %>
+      <p><%= submit_tag "ユーザーページトップに戻る" %></p>
+    <% end %>
+  <% else %>
+    <%= form_tag :top, method: :get do %>
+      <p><%= submit_tag "トップページに戻る" %></p>
+    <% end %>
+  <% end %>
+
+</table>

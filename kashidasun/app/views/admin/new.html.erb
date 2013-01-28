@@ -1,0 +1,11 @@
+<% @page_title="本の追加ページだよ"%>
+
+<%= form_for @book, url: admin_path(@book) do |form| %>
+  <%= render "books/form", form: form %>
+  <p><%= form.submit "追加" %></p>
+<% end %>
+
+<%= form_tag :admin, method: :get do %>
+  <p><%= submit_tag "管理者ページトップに戻る" %></p>
+<% end %>
+

@@ -1,0 +1,24 @@
+<% if session[:login] %>
+  <p>ログインされてるよ</p>
+  <%= form_tag :logout_top_index, method: :get do %>
+    <p><%= submit_tag "ログアウト" %></p>
+  <% end %>
+<% else %>
+  <h2>ログイン</h2>
+  <table id="login_form">
+    <%= form_tag :login_top_index, method: :get do %>
+      <tr>
+        <td align="right">ユーザーID：</td>
+        <td><%= text_field_tag "a", params[:a] %></td>
+      </tr>
+      <tr>
+        <td align="right">パスワード：</td>
+        <td><%= password_field_tag "b", params[:b] %></td>
+      </tr>
+      <tr>
+        <td colspan="2" align="center">
+        <%= submit_tag "ログイン" %></td>
+      </tr>
+    <% end %>
+  </table>
+<% end %>

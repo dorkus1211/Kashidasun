@@ -1,0 +1,16 @@
+<% @members.each do |member| %>
+  <% if member.member_id == session[:member_id] %>
+    <% @member_name = member.name %>
+  <% end %>
+<% end %>
+
+<% @page_title = "管理者（"+@member_name+"さん）の管理者ページだよ"%>
+
+<p><%= link_to "本の追加ページ", :new_admin %></p>
+
+<p><%= link_to "本の削除ページ", :delete %></p>
+
+<p><%= link_to "利用者の追加ページ", :member_new_admin_index %></p>
+
+<p><%= link_to "利用者の削除ページ", :member_list_admin_index %></p>
+

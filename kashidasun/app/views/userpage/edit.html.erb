@@ -1,0 +1,16 @@
+<% @page_title="会員情報の編集ページだよ"%>
+
+
+
+※ユーザーIDは変更できません
+<%= form_for @member,  :url => {:action => 'update'}  do |form| %>
+  <%= render "members/user_form", form: form %>
+  <%= form.hidden_field :lending %>
+  <%= form.hidden_field :admin %>
+  <p><%= form.submit "編集" %></p>
+<% end %>
+
+<%= form_tag :userpage, method: :get do %>
+  <p><%= submit_tag "ユーザーページトップに戻る" %></p>
+<% end %>
+

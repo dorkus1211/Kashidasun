@@ -1,0 +1,26 @@
+<%= render "shared/errors", obj: @member %>
+
+<table class="attr">
+  <tr>
+    <th><%= form.label :member_id %></th>
+    <td><%= form.text_field :member_id %></td>
+  </tr>
+  </br>
+  <tr>
+    <th><%= form.label :pw %></th>
+    <td><%= form.text_field :pw %></td>
+  </tr>
+  </br>
+  <tr>
+    <th><%= form.label :name %></th>
+    <td><%= form.text_field :name %></td>
+  </tr>
+  </br>
+  <tr>
+    <th>管理者</th>
+    <td>
+      <%= form.check_box :admin %>
+      <%= form.label :admin %>
+    </td>
+  </tr>
+</table>

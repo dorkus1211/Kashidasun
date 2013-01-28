@@ -1,0 +1,51 @@
+<% @members.each do |member| %>
+  <% if member.member_id == session[:member_id] %>
+    <% @member_name = member.name %>
+    <% @this_member = member %>
+  <% end %>
+<% end %>
+
+<% @page_title = @member_name+'さんのユーザーページだよ' %>
+
+<% if @lend %>
+  <% @book2s.each do |book| %>
+    <% if book.lending && book.member_id == @id && book.lend_date.beginning_of_day.advance(days: @days) < @today %>
+      <% @flag = true %>
+      <tr>
+        <td><font size="5" color="#ff0000">・『<%= book.title %>』</font></td>
+      </tr>
+      <br>
+    <% end %>
+  <% end %>
+  <% if @flag %>
+    <td><font size="5" color="#ff0000">の返却期限が過ぎています！！</font></td>
+    <br>
+  <% end %>
+<% end %>
+
+<p><%= link_to "会員情報の編集ページ", edit_userpage_path(@this_member) %></p>
+
+<br>
+
+<%= form_tag :ksearch_index_index, method: :get do %>
+  <p><%= text_field_tag "q", params[:q] %>
+  <%= submit_tag "キーワード検索" %></p>
+<% end %>
+
+<br>
+
+<p>あなたが今借りている本</p>
+<% if @lend %>
+  <% @book2s.each do |book| %>
+     <% if book.lending && book.member_id == @id %>
+       <tr>
+         <td><%= book.title %></td>
+       </tr>
+       <%= button_to "返却", book,:confirm => "ほんまに返すで？", method: :delete %>
+       <br>
+     <% end %>
+  <% end %>
+<% else %>
+  <p>今は1冊も借りてないよ</p>
+<% end %>
+

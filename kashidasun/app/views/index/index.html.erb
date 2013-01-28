@@ -1,0 +1,36 @@
+<% @page_title = '検索結果だよ' %>
+
+<%= form_tag :ksearch_index_index, method: :get do %>
+<p><%= text_field_tag "q", params[:q] %>
+<%= submit_tag "キーワード検索" %></p>
+<% end %>
+
+<% if @books.present? %>
+  <table class="list">
+    <tr>
+      <th>タイトル</th>
+      <th>著者</th>
+      <th>利用状況</th>
+    </tr>
+    <% @books.each do |book| %>
+      <tr>
+        <td><%= link_to book.title, book %></td>
+        <td><%= book.author %></td>
+        <td><%= book.lending == true ? "貸出中" : "利用可" %></td>
+      </tr>
+    <% end %>
+  </table>
+  <%= will_paginate @books %>
+<% else %>
+  <p>そんな本無いよ</p>
+<% end %>
+
+<% if session[:login] %>
+  <%= form_tag :userpage, method: :get do %>
+    <%= submit_tag "ユーザーページトップに戻る" %></p>
+  <% end %>
+<% else %>
+  <%= form_tag :top, method: :get do %>
+    <%= submit_tag "トップページに戻る" %></p>
+  <% end %>
+<% end %>

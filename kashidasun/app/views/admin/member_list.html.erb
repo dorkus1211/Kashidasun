@@ -1,0 +1,40 @@
+<% @page_title="利用者の削除ページだよ"%>
+
+※本を借りている利用者と自分は削除できません
+<% if @members.present? %>
+  <table class="list">
+    <tr>
+      <th>氏名</th>
+      <th>ユーザーID</th>
+      <th>利用者状況</th>
+      <th>削除欄</th>
+    </tr>
+    <% @members.each do |member| %>
+      <tr>
+        <% if member.member_id != session[:member_id] %>
+          <td><%= member.name %></td>
+        <% else %>
+          <td>あなた</td>
+        <% end %>
+        <td><%= member.member_id %></td>
+        <% if member.admin == true %>
+          <td>管理者です</td>
+        <% else %>
+          <td><%= member.lending == true ? "本を借りています" : "本を借りていません" %></td>
+        <% end %>
+        <% if member.lending == false && member.member_id != session[:member_id] %>
+          <td><%= link_to "削除", member_delete_admin_path(member), confirm: "削除するよ？", method: :delete %></td>
+        <% else %>
+          <td>削除不可</td>
+        <% end %>
+      </tr>
+    <% end %>
+  </table>
+  <%= will_paginate @members %>
+<% else %>
+  <p>利用者と管理者がいないよ</p>
+<% end %>
+
+<%= form_tag :admin, method: :get do %>
+  <p><%= submit_tag "管理者ページトップに戻る" %></p>
+<% end %>

@@ -1,0 +1,10 @@
+<% @page_title = '新規会員登録ページだよ' %>
+
+<%= form_for @member, url: top_path(@member) do |form| %>
+  <%= render "members/user_form", form: form %>
+  <p><%= form.submit "登録" %></p>
+<% end %>
+
+<%= form_tag :top, method: :get do %>
+  <p><%= submit_tag "トップページに戻る" %></p>
+<% end %>

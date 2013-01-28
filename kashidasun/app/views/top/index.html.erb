@@ -1,0 +1,20 @@
+<% @page_title = 'トップページだよ' %>
+
+<p><%= link_to "新規会員登録", new_top_path %></p>
+
+
+<%= form_tag :ksearch_index_index, method: :get do %>
+  <p><%= text_field_tag "q", params[:q] %>
+  <%= submit_tag "キーワード検索" %></p>
+<% end %>
+
+<% if @count > 0 %>
+  新作本
+  <br>
+  <% @bookdayo.each do |book| %>
+    <% if (@today-book.created_at)/86400 < 3 %>
+      『 <%= book.title %> 』
+       <br>
+    <% end %>
+  <% end %>
+<% end %>

@@ -1,0 +1,21 @@
+<p>現在貸し出し中の本</p>
+
+<% if @books.present? %>
+  <table class="list">
+    <tr>
+      <th>タイトル</th>
+      <th>著者</th>
+      <th>返却日</th>
+    </tr>
+    <% @books.each do |book| %>
+      <tr>
+        <td><%= book.title %></td>
+        <td><%= book.author %></td>
+        <td><%= book.lend_date.beginning_of_day.advance(days: @days).strftime("%Y/%m/%d") %></td>
+      </tr>
+    <% end %>
+  </table>
+  <%= will_paginate @books %>
+<% else %>
+  <p>貸出中の本は一冊も無いよ</p>
+<% end %>
